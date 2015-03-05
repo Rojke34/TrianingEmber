@@ -12,7 +12,7 @@
   <script type="text/x-handlebars">
 
     <ul class="nav nav-tabs">
-      <li role="presentation" >{{#link-to 'index'}}Welcome to Ember.js{{/link-to}}</li>
+      <li role="presentation">{{#link-to 'index'}}Welcome to Ember.js{{/link-to}}</li>
       <li role="presentation">{{#link-to 'dogs'}} Dogs {{/link-to}}</li>
       <li role="presentation">{{#link-to 'birds'}} Birds {{/link-to}}</li>
     </ul>
@@ -46,9 +46,13 @@
       <p>{{item}}</p>
     {{/each}}
 
-    <button {{action 'add' }}>Done</button>
+    
     <button {{action 'show'}}>Done</button>
-    {{#if isEditing}} <h1>Birds</h1> {{/if}}
+    {{#if isEditing}} 
+      <h1>Birds</h1> 
+      <button {{action 'add' }}>Add</button>
+      {{partial 'post/edit'}}
+    {{/if}}
     <ul>
       {{#each item in model}}
         <li>{{item}}</li>
@@ -63,6 +67,12 @@
     {{#each item in model}}
       <img {{bind-attr src=item.url}} alt="Phots">
     {{/each}}
+  </script>
+
+  <script type="text/x-handlebars" id="post/_edit">
+    <p>{{input type="text" value=title}}</p>
+    <p>{{input type="text" value=excerpt}}</p>
+    <p>{{textarea value=body}}</p>
   </script>
 
   <script src="js/libs/jquery-1.10.2.js"></script>

@@ -42,12 +42,11 @@ App.BirdsController = Ember.Controller.extend({
 	},
 	actions: {
 		add: function(){
-			this.model.push('gato')
-
-			this.fx()
+			this.model.push('gato');
+			this.fx();
 		},
 		show: function( ){
-			this.isEditing = !this.isEditing
+			this.set('isEditing', !this.isEditing);
 		}
 	}
 });
@@ -55,19 +54,17 @@ App.BirdsController = Ember.Controller.extend({
 var apiKey = "9f30af6c000e4b7cf703a471edc86456";
 var secreto = "341babc55455cc9e";
 var endPoint = "https://api.flickr.com/services/rest/?";
-
-var photoUrl = "https://www.flickr.com/photos/"
 //Modelo para la plnatilla animal
 App.AnimalRoute = Ember.Route.extend({
 	model: function(param){
-		var url = "method=flickr.photos.search&api_key="+apiKey+"&tags="+param["name_raza"]+"&safe_search=1&per_page=20";
-		console.log(endPoint + url)
+		var url = "method=flickr.photos.search&api_key="+apiKey+"&tags="+param["name_raza"]+"&safe_search=1&per_page=100";
+		console.log(url); 
 		return Ember.$.getJSON(endPoint + url + "&format=json&jsoncallback=?").then(function(data) {	
-      var arrayPhotos = data.photos.photo
+      var arrayPhotos = data.photos.photo;
       for (var i = 0; i < arrayPhotos.length; i ++) {
-				arrayPhotos[i].url = "https://farm"+ arrayPhotos[i].farm + ".staticflickr.com/" +arrayPhotos[i].server +"/" + arrayPhotos[i].id+ "_" + arrayPhotos[i].secret + ".jpg"
+				arrayPhotos[i].url = "https://farm"+ arrayPhotos[i].farm + ".staticflickr.com/" +arrayPhotos[i].server +"/" + arrayPhotos[i].id+ "_" + arrayPhotos[i].secret + ".jpg";
       }
-      return data.photos.photo
+      return data.photos.photo;
       
     });
 
